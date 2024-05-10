@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+<f:view>
+	<h:head>
+		<title>Registro de usuarios</title>
+		<style>
+td {
+	box-sizing: border-box;
+	text-align: end;
+}
+
+body .ui-panel .ui-panel-titlebar {
+	text-align: center;
+	border: 1px solid #dee2e6;
+	background: #a3cef1;
+	color: #495057;
+	padding: 1rem;
+	font-weight: 900;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+body .ui-panel>div:last-of-type {
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+body .ui-panel .ui-panel-titlebar+.ui-panel-content {
+	border-top: 0 none;
+	justify-content: center;
+	display: flex;
+}
+</style>
+	</h:head>
+	<body
+		style="font-family: verdana, arial; margin: 0px; margin-top: 0px; background-color: #edf6f9; font-weight: bold; display: flex; justify-content: center; align-items: center;">
+				<h1 style=" margin-top: 30px; -webkit-text-stroke: 1px black;  color: #a3cef1;  text-align: center; font-family: sans-serif; text-transform: uppercase;">Gestor de Facturas</h1>
+		<h:form id="documento"
+			style="width: 100%; display: flex; justify-content: center; align-items: center; margin-top: 50px;">
+			<p:panel header="Regístrate">
+				<h:panelGrid columns="2" style="padding: 20px; width: 85%;">
+					<h:outputLabel for="coUsuarios" value="Nombre de usuario:" />
+					<p:inputText id="coUsuarios" required="false"
+						value="#{Gestionusuarios.objetoSeleccionado.coUsuarios}" />
+
+					<h:outputLabel for="dsUsuarios" value="Nombre completo:" />
+					<p:inputText id="dsUsuarios" required="false"
+						value="#{Gestionusuarios.objetoSeleccionado.dsUsuarios}" />
+
+					<h:outputLabel for="dsPassword" value="Contraseña:" />
+					<p:password id="dsPassword" required="false"
+						value="#{Gestionusuarios.objetoSeleccionado.dsPassword}" />
+
+					<h:outputLabel for="dsPasswordR" value="Repetir contraseña:" />
+					<p:password id="dsPasswordR" required="false"
+						value="#{Gestionusuarios.objetoSeleccionado.dsPasswordR}" />
+
+					<h:outputLabel for="email" value="Correo:" />
+					<p:inputText id="email" required="false"
+						value="#{Gestionusuarios.objetoSeleccionado.dsEmail}" />
+
+<!-- 					<h:outputLabel for="usuarioBd" value="Usuario BD:" /> -->
+<!-- 					<p:inputText id="usuarioBd" -->
+<!-- 						value="#{Gestionusuarios.objetoSeleccionado.usuarioBd}" /> -->
+
+<!-- 					<h:outputLabel for="admin" value="Usuario Administrador:" /> -->
+<!-- 					<p:selectBooleanCheckbox id="admin" -->
+<!-- 						value="#{Gestionusuarios.esBoolean}"> -->
+<!-- 						<p:ajax update="admin" /> -->
+<!-- 					</p:selectBooleanCheckbox> -->
+
+					<f:facet name="footer"
+						style="padding: 20px; width: 100%; text-align: center; ">
+						<div
+							style="display: flex; justify-content: space-between; align-items: center; margin-top: 20px;">
+
+							<div
+								style="display: flex; flex-direction: column; align-items: center;">
+								<h:outputText value="¿Ya tienes una cuenta?" />
+								<br />
+								<p:link value="Iniciar sesión" outcome="login.xhtml" />
+							</div>
+							<p:commandButton value="Registrar"
+								action="#{Gestionusuarios.grabar()}" update="documento">
+							</p:commandButton>
+
+						</div>
+					</f:facet>
+				</h:panelGrid>
+
+			</p:panel>
+		</h:form>
+		<p:dialog header="Error" widgetVar="errorDialog" modal="true"
+			resizable="false">
+			<p:outputLabel id="mensajeError" />
+		</p:dialog>
+		<p:dialog header="Genial" widgetVar="exitoDialog" modal="true"
+			resizable="false">
+			<p:outputLabel id="mensajeExito" />
+		</p:dialog>
+	</body>
+</f:view>
+</html>

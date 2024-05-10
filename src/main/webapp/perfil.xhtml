@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+<f:view>
+	<h:head>
+		<title>Perfil de Usuario</title>
+		<style>
+td {
+	box-sizing: border-box;
+	text-align: end;
+	padding: 10px;
+}
+
+body .ui-panel .ui-panel-titlebar {
+	text-align: center;
+	border: 1px solid #dee2e6;
+	background: #a3cef1;
+	color: #495057;
+	padding: 1rem;
+	font-weight: 900;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+body .ui-panel>div:last-of-type {
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+body .ui-panel .ui-panel-titlebar+.ui-panel-content {
+	border-top: 0 none;
+	justify-content: center;
+	display: flex;
+}
+</style>
+	</h:head>
+	<body
+		style="font-family: verdana, arial; margin: 0px; margin-top: 0px; background-color: #edf6f9; font-weight: bold; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+		<div
+			style="background-color: #003049; color: #FFFFFF; text-align: center; padding: 10px; top: 0; left: 0; rigth: 0; z-index: 1000; width:100% ;!important">
+			<h1>Perfil</h1>
+		</div>
+		<h:form id="documento"
+			style="width: 100%; display: flex; justify-content: center; align-items: center; margin-top: 50px;">
+			<p:panel header="Perfil de Usuario" >
+				<h:panelGrid columns="2" style="padding: 20px; width: 85%;">
+					<p:outputLabel for="coUsuarios" value="Nombre de usuario:" />
+					<p:outputLabel id="coUsuarios"
+						value="#{Gestionusuarios.objetoSeleccionado.coUsuarios}"
+						style="text-align: left;" />
+
+					<h:outputLabel for="dsUsuarios" value="Nombre completo:" />
+					<p:inputText id="dsUsuarios"
+						value="#{Gestionusuarios.objetoSeleccionado.dsUsuarios}"
+						styleClass="input-field" />
+
+					<h:outputLabel for="dsPassword" value="Contraseña:" />
+					<p:password id="dsPassword"
+						value="#{Gestionusuarios.objetoSeleccionado.dsPassword}"
+						styleClass="input-field" />
+
+					<h:outputLabel for="dsPasswordR" value="Repite la contraseña:" />
+					<p:password id="dsPasswordR"
+						value="#{Gestionusuarios.objetoSeleccionado.dsPasswordR}"
+						styleClass="input-field" />
+
+					<h:outputLabel for="email" value="Correo:" />
+					<p:inputText id="email"
+						value="#{Gestionusuarios.objetoSeleccionado.dsEmail}"
+						styleClass="input-field" />
+
+					<p:outputLabel for="fecha" value="Última modificación:" />
+					<p:outputLabel id="fecha"
+						value="#{Gestionusuarios.objetoSeleccionado.tstbd}"
+						style="border: none; text-align: left;" />
+
+					<f:facet name="footer">
+						<p:commandButton style="margin-top: 50px;" value="Editar Perfil"
+							action="#{Gestionusuarios.editarPerfil()}" update="documento" />
+					</f:facet>
+					<f:facet name="footer">
+						<p:commandButton style="margin-top: 50px; margin-left: 20px;"
+							value="Volver" onclick="window.history.back();" />
+					</f:facet>
+				</h:panelGrid>
+
+			</p:panel>
+		</h:form>
+		<p:dialog header="Error" widgetVar="errorDialog" modal="true"
+			resizable="false">
+			<p:outputLabel id="mensajeError" />
+		</p:dialog>
+		<p:dialog header="Genial" widgetVar="exitoDialog" modal="true"
+			resizable="false">
+			<p:outputLabel id="mensajeExito" />
+		</p:dialog>
+	</body>
+</f:view>
+</html>

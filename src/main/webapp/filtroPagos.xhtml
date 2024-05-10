@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui">
+<f:view>
+	<h:head>
+	
+		<title>#{Gestionpagos.titulo}</title>
+		<style>
+body .ui-datatable thead th {
+	background: #a3cef1 !important;
+	color: #000 !important;
+	padding: 1rem 1rem !important;
+	border: 1px solid #e9ecef !important;
+	border-width: 0 0 1px 0 !important;
+	text-align: center !important;
+	box-sizing: content-box !important;
+	transition: background-color .2s, color .2s, border-color .2s,
+		box-shadow .2s, opacity .2s !important;
+}
+
+body .ui-datatable .ui-datatable-data>tr>td {
+	padding: 1rem 1rem;
+	border: none;
+	border-width: 0 0 1px 0;
+	background-color: beige;
+}
+
+a:-webkit-any-link {
+	color: -webkit-link;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+a:-webkit-any-link:hover {
+	color: orange !important;
+}
+
+body .ui-datatable .ui-datatable-data>tr:hover>td {
+	background-color: #e0e0e0;
+	transition: 0.3s;
+}
+
+body .ui-datatable thead th {
+	background: #F0EAAF;
+	color: #495057;
+	padding: 1rem 1rem;
+	border: 1px solid #e9ecef;
+	border-width: 0 0 1px 0;
+	text-align: left;
+	box-sizing: content-box;
+	transition: background-color .2s, color .2s, border-color .2s,
+		box-shadow .2s, opacity .2s;
+}
+</style>
+	</h:head>
+
+	<body
+		style="background: #edf6f9; font-family: verdana, arial; margin: 0px; margin-top: 0px; font-weight: bold;">
+
+		<h:form id="documento" style="background-color: #edf6f9; width: 100%;">
+			<div
+				style="width: 100%; background-color: #a3cef1; height: 30px; display: flex; align-items: center; justify-content: space-between;">
+				<h:outputText style="float: left; margin-left: 20px;"
+					value="¡Bienvenido, #{usuario.coUsuarios} !"
+					rendered="#{not empty usuario}" />
+				<div style="display: flex; align-items: center;">
+					<h:commandLink id="administrarUsuarios"
+						rendered="#{Gestionusuarios.objetoSeleccionado.boAdmin eq 1}"
+						style="color: #000; float: right; margin-right: 20px; font-size: 12px; text-decoration: none; padding: 3px;"
+						onmouseover="this.style.color='#000'; this.style.backgroundColor='#6096ba'; this.style.transform='scale(1.05)'; this.style.borderRadius='15px';"
+						onmouseout="this.style.color='#000';  this.style.transform='scale(1)'; this.style.backgroundColor='transparent'; this.style.borderRadius='none';"
+						value="Administrar usuarios"
+						action="#{Gestionusuarios.administrar()}" />
+					<h:commandLink style="float: right; margin-right: 20px;"
+						action="#{Gestionusuarios.perfil()}" update="documento">
+						<img src="usuario.png" alt="Perfil de usuario"
+							style="width: 25px; height: 25px; transition: background-color 0.3s; border-radius: 50%; padding: 2px;"
+							onmouseover="this.style.backgroundColor='#6096ba';"
+							onmouseout="this.style.backgroundColor='transparent';"> 
+						</img>
+					</h:commandLink>
+					<h:commandLink style="float: right; margin-right: 20px;"
+						action="#{Gestionusuarios.cerrarSesion()}" update="documento">
+						<img src="salir.png" alt="Cerrar Sesión"
+							style="width: 25px; height: 25px; transition: background-color 0.3s; border-radius: 50%; margin: 5px;"
+							onmouseover="this.style.backgroundColor='#6096ba';"
+							onmouseout="this.style.backgroundColor='transparent';"> 
+						</img>
+					</h:commandLink>
+				</div>
+			</div>
+
+			<div
+				style="background-color: #003049; color: #FFFFFF; text-align: center; padding: 10px;">
+				<h1>Gestión de Pagos</h1>
+			</div>
+
+			<div
+				style="display: flex; justify-content: center; align-items: center; margin: 10px;">
+				<p:commandButton
+					style="width: 200px; height: 30px; border-radius: 15px;  
+			            background-color: #a3cef1; border: none; color: black; font-size: 16px;
+			            	font-weight: bold; margin-right: 10px; text-transform: uppercase; 
+			            	display: flex; justify-content: center; align-items: center;
+			            	box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);"
+					onmouseover="this.style.backgroundColor='#6096ba'; this.style.color='#ffff'; this.style.transform='scale(1.05)'; this.style.fontSize='17px';"
+					onmouseout="this.style.backgroundColor='#a3cef1'; this.style.color='#000'; this.style.transform='scale(1)'; this.style.fontSize='16px';"
+					value="Nuevo pago +" action="#{Gestionpagos.darDeAlta()}">
+				</p:commandButton>
+				<p:commandButton
+					style="width: 200px; height: 30px; border-radius: 15px;  
+			            background-color: #a3cef1; border: none; color: black; font-size: 16px; 
+			            	font-weight: bold; margin-right: 10px; text-transform: uppercase; 
+			            	display: flex; justify-content: center; align-items: center;
+			            	box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);"
+					onmouseover="this.style.backgroundColor='#6096ba'; this.style.color='#ffff'; this.style.transform='scale(1.05)'; this.style.fontSize='17px';"
+					onmouseout="this.style.backgroundColor='#a3cef1'; this.style.color='#000'; this.style.transform='scale(1)'; this.style.fontSize='16px';"
+					value="Filtro facturas" action="#{Gestionfacturas.volver()}">
+				</p:commandButton>
+			</div>
+
+			<table style="border-spacing: 0px; width: 100%;">
+				<tr style="background-color: #a3cef1; padding: 5px;">
+					<td style="text-align: right;"><label for="codigoPagos">
+							Código Pago: </label></td>
+					<td style="float: left; padding: 5px"><p:inputText
+							style="width: 300px; padding: 5px; border: 1px solid #232D3F; border-radius: 5px;"
+							id="codigoPago" value="#{Gestionpagos.coPagos}">
+						</p:inputText></td>
+				</tr>
+				<tr style="background-color: #6096ba; padding: 5px;">
+					<td style="text-align: right;"><label for="descripcionPagos">
+							Descripción Pago: </label></td>
+					<td style="float: left; padding: 5px"><p:inputText
+							style="width: 300px; padding: 5px; border: 1px solid #232D3F; border-radius: 5px;"
+							id="descripcionPagos" value="#{Gestionpagos.dsPagos}">
+						</p:inputText></td>
+				</tr>
+				<tr style="background-color: #a3cef1; padding: 5px;">
+					<td style="text-align: right;"><label for="tercero">
+							Tercero: </label></td>
+					<td style="float: left; padding: 5px"><p:inputText
+							style="width: 300px; padding: 5px; border: 1px solid #232D3F; border-radius: 5px;"
+							id="tercero" value="#{Gestionpagos.dsTercero}">
+						</p:inputText></td>
+				</tr>
+				<tr style="background-color: #6096ba; padding: 5px;">
+					<td style="text-align: right;"><label for="importePagos">
+							Importe desde: </label></td>
+					<td style="float: left; padding: 5px"><p:inputText
+							style="width: 300px; padding: 5px; border: 1px solid #232D3F; border-radius: 5px;"
+							id="importePagos" value="#{Gestionpagos.imPagos}">
+						</p:inputText></td>
+				</tr>
+				<tr style="background-color: #a3cef1; padding: 5px;">
+					<td style="text-align: right;"><label for="importePagos">
+							Importe hasta: </label></td>
+					<td style="float: left; padding: 5px;"><p:inputText
+							style="width: 300px; padding: 5px; border: 1px solid #232D3F; border-radius: 5px;"
+							id="importePagosHasta" value="#{Gestionpagos.imPagosHasta}">
+						</p:inputText></td>
+				</tr>
+			</table>
+
+			<div
+				style="display: flex; justify-content: center; align-items: center; margin: 10px;">
+				<p:commandButton
+					style="width: 200px; height: 30px; border-radius: 15px;  
+			            background-color: #57cc99; border: none; color: black; font-size: 16px; 
+			            	font-weight: bold; margin-right: 10px; text-transform: uppercase; 
+			            	display: flex; justify-content: center; align-items: center;
+			            	box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);"
+					onmouseover="this.style.backgroundColor='#80ed99'; this.style.color='#ffff'; this.style.transform='scale(1.05)'; this.style.fontSize='17px';"
+					onmouseout="this.style.backgroundColor='#57cc99'; this.style.color='#000'; this.style.transform='scale(1)'; this.style.fontSize='16px';"
+					value="Filtrar pago" update="documento"
+					action="#{Gestionpagos.buscar()}">
+				</p:commandButton>
+				<p:commandButton
+					style="width: 200px; height: 30px; border-radius: 15px;  
+			            background-color: #ffc300; border: none; color: black; 
+				            font-size: 16px; font-weight: bold; margin-right: 10px; 
+				            text-transform: uppercase; display: flex; justify-content: center;
+				            align-items: center; box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);"
+					onmouseover="this.style.backgroundColor='#ffd60a'; this.style.color='#ffff'; this.style.transform='scale(1.05)'; this.style.fontSize='17px';"
+					onmouseout="this.style.backgroundColor='#ffc300'; this.style.color='#000'; this.style.transform='scale(1)'; this.style.fontSize='16px';"
+					value="Limpiar" update="documento"
+					action="#{Gestionpagos.limpiar()}">
+				</p:commandButton>
+			</div>
+			<div
+				style="width: 100%; text-align: center; align-items: center; display: flex; justify-content: center;">
+				<h2 style="text-align: center;">Tabla de Pagos</h2>
+				<p:commandButton
+					style="box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3); margin-left: 30px;
+								border-radius: 20px;"
+					value="Exportar Pagos"
+					action="#{Gestionpagos.exportarTablaPagos()}" update="documento"
+					onclick="return confimacionExportar();" />
+			</div>
+			<p:dialog header="Genial" widgetVar="dialogoExito" modal="true"
+				resizable="false">
+				<p:outputLabel id="mensajeExito" style="color: red;" />
+			</p:dialog>
+			<div style="display: flex; justify-content: center;">
+
+
+
+				<p:dataTable value="#{Gestionpagos.listaResultadosP}" var="item"
+					rowKey="#{item.id}"
+					style="border-collapse: collapse; width: 80%; max-height: 400px; overflow-y: auto; 
+				             background-color: #FFF6E9; border: 5px solid #a3cef1; border-radius: 15px; 
+				             box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.3);"
+					emptyMessage="No se encontraron datos">
+
+					<p:column headerText="Código" style=" text-align: center;"
+						headerStyleClass="custom-header-style">
+						<h:commandLink value="#{item.coPagos}" process="@this"
+							action="#{Gestionpagos.detallePago()}" type="submit">
+							<f:setPropertyActionListener
+								target="#{Gestionpagos.objetoSeleccionado}" value="#{item}" />
+
+						</h:commandLink>
+					</p:column>
+
+					<p:column headerText="Descripción" style="text-align: center;">
+						<h:outputText value="#{item.dsPagos}" />
+					</p:column>
+
+					<p:column headerText="Fecha" style="text-align: center;">
+						<h:outputText value="#{item.fePagosStr}">
+							<f:convertDateTime pattern="dd/MM/yyyy" />
+						</h:outputText>
+					</p:column>
+
+					<p:column headerText="Tercero" style="text-align: center;">
+						<h:outputText value="#{item.dsTercero}" />
+					</p:column>
+
+					<p:column headerText="Importe" style="text-align: center;">
+						<h:outputText value="#{item.imPagos}" />
+					</p:column>
+				</p:dataTable>
+			</div>
+			
+		</h:form>
+		<br></br>
+		<script>
+			function confimacionExportar() {
+				if (confirm('¿Estás seguro de que deseas exportar los pagos de la lista?')) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		</script>
+	</body>
+</f:view>
+</html>
